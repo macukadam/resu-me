@@ -10,6 +10,7 @@ pub struct GlobalState {
     pub job_title: String,
     pub job_description: String,
     pub email: String,
+    pub website: String,
     pub phone: String,
     pub work_experience: Vec<Experience>,
     pub education: Vec<Experience>,
@@ -27,7 +28,7 @@ pub struct Experience {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Store)]
 pub struct Skill {
     pub skill: String,
-    pub proficiency: u8,
+    pub proficiency: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Store)]
@@ -45,6 +46,7 @@ impl Default for GlobalState {
                     sollicitudin in dolor at, consequat volutpat ante. Integer quis consequat turpis, quis porta orci. Proin
                     tincidunt volutpat faucibus. Suspendisse ac nisl purus suspendisse eleifend interdum orci non pharetra.".to_string(),
             email: "lcollins@email.com".to_string(),
+            website: "lcollins@email.com".to_string(),
             phone: "123-456-7890".to_string(),
             work_experience: vec![Experience::default(), Experience::default(), Experience::default()],
             education: vec![Experience::default(), Experience::default()],
@@ -52,7 +54,6 @@ impl Default for GlobalState {
             images: vec!["http://store-images.s-microsoft.com/image/apps.49745.9007199266437737.188b2a07-b170-4fe0-a52a-63f919ad6d32.47320de6-0cfc-4757-a926-0cfcd81b9d65".to_string(),
                         "http://store-images.s-microsoft.com/image/apps.49745.9007199266437737.188b2a07-b170-4fe0-a52a-63f919ad6d32.47320de6-0cfc-4757-a926-0cfcd81b9d65".to_string()],
             socials: vec![Social::default(), Social::default(), Social::default()],
-
         }
     }
 }
@@ -71,7 +72,7 @@ impl Default for Skill {
     fn default() -> Self {
         Self {
             skill: "HTML".to_string(),
-            proficiency: 70,
+            proficiency: "70".to_string(),
         }
     }
 }

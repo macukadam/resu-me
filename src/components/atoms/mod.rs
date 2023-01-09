@@ -1,3 +1,3 @@
-pub mod hello_world;
-pub mod text_input;
-pub mod custom_input;
+pub mod input;
+pub mod text_area;
+pub mod range_input;

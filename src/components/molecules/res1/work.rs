@@ -18,7 +18,7 @@ pub fn work() -> Html {
 
     html! {
       <div class="col-md mb-5">
-        <h2 class="mb-5">{"work experience"}</h2>
+        <h2 class="mb-5">{"Work experience"}</h2>
         <ul>
             {for work_experiences}
         </ul>
