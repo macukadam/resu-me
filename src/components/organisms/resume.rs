@@ -10,7 +10,7 @@ use crate::components::molecules::res1::footer::Footer;
 #[function_component(Resume)]
 pub fn resume() -> Html {
     html! {
-        <div>
+        <div id="resume">
           <Header />
           <Nav />
           <main class="container">

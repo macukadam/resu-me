@@ -7,6 +7,8 @@ use crate::components::atoms::input::Input;
 use crate::components::atoms::range_input::RangeInput;
 use crate::components::atoms::text_area::TextArea;
 
+use crate::components::molecules::multi_step_form::image_upload::FileDataComponent;
+
 #[function_component(StepsContainer)]
 pub fn step_container() -> Html {
     let (state, dispatch) = use_store::<GlobalState>();
@@ -48,13 +50,6 @@ pub fn step_container() -> Html {
             .value();
     });
 
-    let onkeyup_workexperience_position =
-        dispatch.reduce_mut_callback_with(|state, event: KeyboardEvent| {
-            state.work_experience[0].position = event
-                .target_unchecked_into::<web_sys::HtmlInputElement>()
-                .value();
-        });
-
     let add_work_experience = dispatch.reduce_mut_callback_with(|state, event: MouseEvent| {
         event.prevent_default();
         state.work_experience.push(Default::default());
@@ -85,43 +80,14 @@ pub fn step_container() -> Html {
         state.skills.pop();
     });
 
-    let onkeyup_workexperience_explanation =
-        dispatch.reduce_mut_callback_with(|state, event: KeyboardEvent| {
-            state.work_experience[0].explanation = event
-                .target_unchecked_into::<web_sys::HtmlInputElement>()
-                .value();
-        });
-
-    let onkeyup_education_school =
-        dispatch.reduce_mut_callback_with(|state, event: KeyboardEvent| {
-            state.education[0].position = event
-                .target_unchecked_into::<web_sys::HtmlInputElement>()
-                .value();
-        });
-
-    let onkeyup_education_explanation =
-        dispatch.reduce_mut_callback_with(|state, event: KeyboardEvent| {
-            state.education[0].explanation = event
-                .target_unchecked_into::<web_sys::HtmlInputElement>()
-                .value();
-        });
-
-    let onkeyup_skills_skill = dispatch.reduce_mut_callback_with(|state, event: KeyboardEvent| {
-        state.skills[0].skill = event
-            .target_unchecked_into::<web_sys::HtmlInputElement>()
-            .value();
-    });
-
-    let onmouseup_skills_proficiency =
-        dispatch.reduce_mut_callback_with(|state, event: MouseEvent| {
-            state.skills[0].proficiency = event
-                .target_unchecked_into::<web_sys::HtmlInputElement>()
-                .value();
-        });
+    let img = format!("data:image/png;base64,{}", state.image_data.clone());
 
     html! {
         <div id="steps-container">
+
           <div class="step d-block">
+            <FileDataComponent/>
+            <img class="rounded-circle img-fluid" alt="Profile Photo" src={img}/>
             <h4>{"Introduction"}</h4>
             <Input value={state.username.clone()} onkeyup={onkeyup_username} label="Name:" />
             <Input value={state.job_title.clone()} onkeyup={onkeyup_jobtitle} label="Job Title:" />
@@ -135,24 +101,103 @@ pub fn step_container() -> Html {
           </div>
           <div class="step">
             <h4>{"Work history"}</h4>
-            <Input value={state.work_experience[0].position.clone()} onkeyup={onkeyup_workexperience_position} label="Position:" />
-            <TextArea value={state.work_experience[0].explanation.clone()} onkeyup={onkeyup_workexperience_explanation} label="Explanation:" />
+            { for state.work_experience.iter().enumerate().map(|(index, work)| {
+
+            let header = format!("Work {}", index + 1);
+            html! {
+                <h3>{header}</h3>
+            };
+
+            let onkeyup_workexperience_position =
+                dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
+                state.work_experience[index].position = event
+                    .target_unchecked_into::<web_sys::HtmlInputElement>()
+                    .value();
+            });
+
+            let onkeyup_workexperience_explanation =
+                dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
+                    state.work_experience[index].explanation = event
+                        .target_unchecked_into::<web_sys::HtmlInputElement>()
+                        .value();
+            });
+
+              html! {
+                <div>
+                  <br/>
+                  <Input value={work.position.clone()} onkeyup={&onkeyup_workexperience_position} label="Position:" />
+                  <TextArea value={work.explanation.clone()} onkeyup={&onkeyup_workexperience_explanation} label="Explanation:" />
+                </div>
+              }
+            })}
+
             <br/>
             <button onclick={add_work_experience} style="font-size:16px"><i class="fa fa-plus"></i></button>
             <button onclick={remove_work_experience} style="font-size:16px"><i class="fa fa-minus"></i></button>
           </div>
           <div class="step">
             <h4>{"Education history"}</h4>
-            <Input value={state.education[0].position.clone()} onkeyup={onkeyup_education_school} label="Education name:" />
-            <TextArea value={state.education[0].explanation.clone()} onkeyup={onkeyup_education_explanation} label="Explanation:" />
+
+            { for state.education.iter().enumerate().map(|(index, education)| {
+
+            let onkeyup_education_school =
+                dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
+                    state.education[index].position = event
+                        .target_unchecked_into::<web_sys::HtmlInputElement>()
+                        .value();
+            });
+
+            let onkeyup_education_explanation =
+                dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
+                    state.education[index].explanation = event
+                        .target_unchecked_into::<web_sys::HtmlInputElement>()
+                        .value();
+            });
+
+
+              html! {
+                <div>
+                    <br/>
+                    <Input value={education.position.clone()} onkeyup={onkeyup_education_school} label="Education name:" />
+                    <TextArea value={education.explanation.clone()} onkeyup={onkeyup_education_explanation} label="Explanation:" />
+                </div>
+              }
+            })}
+
+
             <br/>
             <button onclick={add_education} style="font-size:16px"><i class="fa fa-plus"></i></button>
             <button onclick={remove_education} style="font-size:16px"><i class="fa fa-minus"></i></button>
           </div>
           <div class="step">
             <h4>{"Skills"}</h4>
-            <Input value={state.skills[0].skill.clone()} onkeyup={onkeyup_skills_skill} label="Skill:" />
-            <RangeInput value={state.skills[0].proficiency.clone()} onmouseup={onmouseup_skills_proficiency} label="Proficiency:" />
+
+            { for state.skills.iter().enumerate().map(|(index, skill)| {
+
+            let onkeyup_skills_skill = dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
+                state.skills[index].skill = event
+                    .target_unchecked_into::<web_sys::HtmlInputElement>()
+                    .value();
+            });
+
+            let onmouseup_skills_proficiency =
+                dispatch.reduce_mut_callback_with(move |state, event: MouseEvent| {
+                    state.skills[index].proficiency = event
+                        .target_unchecked_into::<web_sys::HtmlInputElement>()
+                        .value();
+            });
+
+
+              html! {
+                <div>
+                    <br/>
+                    <Input value={skill.skill.clone()} onkeyup={onkeyup_skills_skill} label="Skill:" />
+                    <RangeInput value={skill.proficiency.clone()} onmouseup={onmouseup_skills_proficiency} label="Proficiency:" />
+                </div>
+              }
+            })}
+
+
             <br/>
             <button onclick={add_skill} style="font-size:16px"><i class="fa fa-plus"></i></button>
             <button onclick={remove_skill} style="font-size:16px"><i class="fa fa-minus"></i></button>

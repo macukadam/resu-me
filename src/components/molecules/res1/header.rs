@@ -6,13 +6,14 @@ use crate::GlobalState;
 #[function_component(Header)]
 pub fn header() -> Html {
     let (state, _) = use_store::<GlobalState>();
+    let img = format!("data:image/png;base64,{}", state.image_data);
 
     html! {
       <header class="bg-primary bg-gradient text-white py-5">
         <div class="container">
           <div class="row">
             <div class="col-md-3 text-left text-md-center mb-3">
-              <img class="rounded-circle img-fluid" src="https://i.pravatar.cc/175?img=32" alt="Profile Photo" />
+              <img class="rounded-circle img-fluid" alt="Profile Photo" src={img}/>
             </div>
             <div class="col-md-9">
               <h1>{&state.username}</h1>
