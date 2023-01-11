@@ -1,207 +1,191 @@
 use stylist::{yew::styled_component, Style};
 use yew::prelude::*;
+use yewdux::prelude::use_store;
+
+use crate::GlobalState;
 
 const STYLE: &str = include_str!("css/resume2.css");
 
 #[styled_component(Resume2)]
 pub fn resume2() -> Html {
     let stylesheet = Style::new(STYLE).unwrap();
+    let (state, _) = use_store::<GlobalState>();
+    let img = format!("data:image/png;base64,{}", state.image_data);
+
     html! {
-        <div id="resume2">
-            // <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-            //     <a class="navbar-brand js-scroll-trigger" href="#page-top">
-            //         <span class="d-block d-lg-none">{"Clarence Taylor"}</span>
-            //         <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span>
-            //     </a>
-            //     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            //     <div class="collapse navbar-collapse" id="navbarResponsive">
-            //         <ul class="navbar-nav">
-            //             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">{"About"}</a></li>
-            //             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">{"Experience"}</a></li>
-            //             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">{"Education"}</a></li>
-            //             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">{"Skills"}</a></li>
-            //             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">{"Interests"}</a></li>
-            //             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">{"Awards"}</a></li>
-            //         </ul>
-            //     </div>
-            // </nav>
-            // <div class="container-fluid p-0">
-            //     <section class="resume-section" id="about">
-            //         <div class="resume-section-content">
-            //             <h1 class="mb-0">
-            //             {"Clarence"}
-            //                 <span class="text-primary">{"Taylor"}</span>
-            //             </h1>
-            //             <div class="subheading mb-5">
-            //             {"3542 Berry Street · Cheyenne Wells, CO 80810 · (317) 585-8468 ·"}
-            //                 <a href="mailto:name@email.com">{"name@email.com"}</a>
-            //             </div>
-            //             <p class="lead mb-5">{"I am experienced in leveraging agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition."}</p>
-            //             <div class="social-icons">
-            //                 <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>
-            //                 <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
-            //                 <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>
-            //                 <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>
-            //             </div>
-            //         </div>
-            //     </section>
-            //     <hr class="m-0" />
-            //     <section class="resume-section" id="experience">
-            //         <div class="resume-section-content">
-            //             <h2 class="mb-5">{"Experience"}</h2>
-            //             <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-            //                 <div class="flex-grow-1">
-            //                     <h3 class="mb-0">{"Senior Web Developer"}</h3>
-            //                     <div class="subheading mb-3">{"Intelitec Solutions"}</div>
-            //                     <p>{"Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring."}</p>
-            //                 </div>
-            //                 <div class="flex-shrink-0"><span class="text-primary">{"March 2013 - Present"}</span></div>
-            //             </div>
-            //             <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-            //                 <div class="flex-grow-1">
-            //                     <h3 class="mb-0">{"Web Developer"}</h3>
-            //                     <div class="subheading mb-3">{"Intelitec Solutions"}</div>
-            //                     <p>{"Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line."}</p>
-            //                 </div>
-            //                 <div class="flex-shrink-0"><span class="text-primary">{"December 2011 - March 2013"}</span></div>
-            //             </div>
-            //             <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-            //                 <div class="flex-grow-1">
-            //                     <h3 class="mb-0">{"Junior Web Designer"}</h3>
-            //                     <div class="subheading mb-3">{"Shout! Media Productions"}</div>
-            //                     <p>{"Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration."}</p>
-            //                 </div>
-            //                 <div class="flex-shrink-0"><span class="text-primary">{"July 2010 - December 2011"}</span></div>
-            //             </div>
-            //             <div class="d-flex flex-column flex-md-row justify-content-between">
-            //                 <div class="flex-grow-1">
-            //                     <h3 class="mb-0">{"Web Design Intern"}</h3>
-            //                     <div class="subheading mb-3">{"Shout! Media Productions"}</div>
-            //                     <p>{"Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI."}</p>
-            //                 </div>
-            //                 <div class="flex-shrink-0"><span class="text-primary">{"September 2008 - June 2010"}</span></div>
-            //             </div>
-            //         </div>
-            //     </section>
-            //     <hr class="m-0" />
-            //     <section class="resume-section" id="education">
-            //         <div class="resume-section-content">
-            //             <h2 class="mb-5">{"Education"}</h2>
-            //             <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-            //                 <div class="flex-grow-1">
-            //                     <h3 class="mb-0">{"University of Colorado Boulder"}</h3>
-            //                     <div class="subheading mb-3">{"Bachelor of Science"}</div>
-            //                     <div>{"Computer Science - Web Development Track"}</div>
-            //                     <p>{"GPA: 3.23"}</p>
-            //                 </div>
-            //                 <div class="flex-shrink-0"><span class="text-primary">{"August 2006 - May 2010"}</span></div>
-            //             </div>
-            //             <div class="d-flex flex-column flex-md-row justify-content-between">
-            //                 <div class="flex-grow-1">
-            //                     <h3 class="mb-0">{"James Buchanan High School"}</h3>
-            //                     <div class="subheading mb-3">{"Technology Magnet Program"}</div>
-            //                     <p>{"GPA: 3.56"}</p>
-            //                 </div>
-            //                 <div class="flex-shrink-0"><span class="text-primary">{"August 2002 - May 2006"}</span></div>
-            //             </div>
-            //         </div>
-            //     </section>
-            //     <hr class="m-0" />
-            //     <section class="resume-section" id="skills">
-            //         <div class="resume-section-content">
-            //             <h2 class="mb-5">{"Skills"}</h2>
-            //             <div class="subheading mb-3">{"Programming Languages & Tools"}</div>
-            //             <ul class="list-inline dev-icons">
-            //                 <li class="list-inline-item"><i class="fab fa-html5"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-angular"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-react"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-node-js"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-sass"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-less"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-wordpress"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-gulp"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-grunt"></i></li>
-            //                 <li class="list-inline-item"><i class="fab fa-npm"></i></li>
-            //             </ul>
-            //             <div class="subheading mb-3">{"Workflow"}</div>
-            //             <ul class="fa-ul mb-0">
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-check"></i></span>
-            //                     {"Mobile-First, Responsive Design"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-check"></i></span>
-            //                     {"Cross Browser Testing & Debugging"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-check"></i></span>
-            //                     {"Cross Functional Teams"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-check"></i></span>
-            //                     {"Agile Development & Scrum"}
-            //                 </li>
-            //             </ul>
-            //         </div>
-            //     </section>
-            //     <hr class="m-0" />
-            //     <section class="resume-section" id="interests">
-            //         <div class="resume-section-content">
-            //             <h2 class="mb-5">{"Interests"}</h2>
-            //             <p>{"Apart from being a web developer, I enjoy most of my time being outdoors. In the winter, I am an avid skier and novice ice climber. During the warmer months here in Colorado, I enjoy mountain biking, free climbing, and kayaking."}</p>
-            //             <p class="mb-0">{"When forced indoors, I follow a number of sci-fi and fantasy genre movies and television shows, I am an aspiring chef, and I spend a large amount of my free time exploring the latest technology advancements in the front-end web development world."}</p>
-            //         </div>
-            //     </section>
-            //     <hr class="m-0" />
-            //     <section class="resume-section" id="awards">
-            //         <div class="resume-section-content">
-            //             <h2 class="mb-5">{"Awards & Certifications"}</h2>
-            //             <ul class="fa-ul mb-0">
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-            //                     {"Google Analytics Certified Developer"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-            //                     {"Mobile Web Specialist - Google Certification"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-            //                     {"1"}
-            //                     <sup>{"st"}</sup>
-            //                     {"Place - University of Colorado Boulder - Emerging Tech Competition 2009"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-            //                     {"1"}
-            //                     <sup>{"st"}</sup>
-            //                     {"Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-            //                     {"2"}
-            //                     <sup>{"nd"}</sup>
-            //                     {"Place - University of Colorado Boulder - Emerging Tech Competition 2008"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-            //                     {"1"}
-            //                     <sup>{"st"}</sup>
-            //                     {"Place - James Buchanan High School - Hackathon 2006"}
-            //                 </li>
-            //                 <li>
-            //                     <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-            //                     {"3"}
-            //                     <sup>{"rd"}</sup>
-            //                     {"Place - James Buchanan High School - Hackathon 2005"}
-            //                 </li>
-            //             </ul>
-            //         </div>
-            //     </section>
-            // </div>
-            // <script src="js/scripts.js"></script>
+        <div id="resume2" class={stylesheet}>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                      <div class="row align-items-center">
+                        <div class="col-lg-5">
+                          <div class="resume-base bg-primary user-dashboard-info-box p-4">
+                            <div class="profile">
+                              <div class="jobster-user-info">
+                                <div class="profile-avatar">
+                                  <img class="img-fluid" alt="Profile Photo" src={img}/>
+                                </div>
+                                <div class="profile-avatar-info mt-3">
+                                  <h5 class="text-white">{"Vickie Meyer"}</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="about-candidate border-top">
+                              <div class="candidate-info">
+                                <h6 class="text-white">{"Name:"}</h6>
+                                <p class="text-white">{"Anne Smith"}</p>
+                              </div>
+                              <div class="candidate-info">
+                                <h6 class="text-white">{"Email:"}</h6>
+                                <p class="text-white">{"test04@gmail.com"}</p>
+                              </div>
+                              <div class="candidate-info">
+                                <h6 class="text-white">{"Phone:"}</h6>
+                                <p class="text-white">{"(123) 345-6789"}</p>
+                              </div>
+                              <div class="candidate-info">
+                                <h6 class="text-white">{"Date Of Birth:"}</h6>
+                                <p class="text-white">{"1993-12-28"}</p>
+                              </div>
+                              <div class="candidate-info">
+                                <h6 class="text-white">{"Address:"}</h6>
+                                <p class="text-white">{"Maine Turnpike, Hallowell, ME, USA"}</p>
+                              </div>
+                              <div class="candidate-info">
+                                <h6 class="text-white">{"Gender:"}</h6>
+                                <p class="text-white">{"Female"}</p>
+                              </div>
+                            </div>
+                            <div class="mt-0">
+                              <h5 class="text-white">{"Professional Skill:"}</h5>
+                              <div class="progress bg-dark">
+                                <div class="progress-bar bg-white" role="progressbar" style="width:55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+                                  <div class="progress-bar-title text-white">{"Photoshop"}</div>
+                                  <span class="progress-bar-number text-white">{"70%"}</span>
+                                </div>
+                              </div>
+                              <div class="progress bg-dark">
+                                <div class="progress-bar bg-white" role="progressbar" style="width:80%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+                                  <div class="progress-bar-title text-white">{"JavaScript"}</div>
+                                  <span class="progress-bar-number text-white">{"80%"}</span>
+                                </div>
+                              </div>
+                              <div class="progress bg-dark">
+                                <div class="progress-bar bg-white" role="progressbar" style="width:55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+                                  <div class="progress-bar-title text-white">{"HTML/CSS"}</div>
+                                  <span class="progress-bar-number text-white">{"55%"}</span>
+                                </div>
+                              </div>
+                              <div class="progress bg-dark mb-md-0">
+                                <div class="progress-bar bg-white" role="progressbar" style="width:60%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                  <div class="progress-bar-title text-white">{"PHP"}</div>
+                                  <span class="progress-bar-number text-white">{"60%"}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-7">
+                          <div class="resume-experience">
+                            <div class="timeline-box">
+                              <h5 class="resume-experience-title">{"Education:"}</h5>
+                              <div class="jobster-candidate-timeline">
+                                <div class="jobster-timeline-item">
+                                  <div class="jobster-timeline-cricle">
+                                    <i class="far fa-circle"></i>
+                                  </div>
+                                  <div class="jobster-timeline-info">
+                                    <div class="dashboard-timeline-info">
+                                      <span class="jobster-timeline-time">{"2014 - 2018"}</span>
+                                      <h6 class="mb-2">{"Diploma in Graphics Design"}</h6>
+                                      <span>{"- Graphic Arts Institute"}</span>
+                                      <p class="mt-2">{"Have some fun and hypnotize yourself to be your very own “Ghost of Christmas future” and see what the future holds for you."}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="jobster-timeline-item mb-0">
+                                  <div class="jobster-timeline-cricle">
+                                    <i class="far fa-circle"></i>
+                                  </div>
+                                  <div class="jobster-timeline-info">
+                                    <div class="dashboard-timeline-info">
+                                      <span class="jobster-timeline-time">{"2018 - Pres"}</span>
+                                      <h6 class="mb-2">{"Masters in Software Engineering"}</h6>
+                                      <span>{"- Engineering University"}</span>
+                                      <p class="mt-2">{"This is the beginning of creating the life that you want to live. Know what the future holds for you as a result of the choice you can make today."}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="timeline-box mt-4">
+                              <h5 class="resume-experience-title">{"Work &amp; Experience:"}</h5>
+                              <div class="jobster-candidate-timeline">
+                                <div class="jobster-timeline-item">
+                                  <div class="jobster-timeline-cricle">
+                                    <i class="far fa-circle"></i>
+                                  </div>
+                                  <div class="jobster-timeline-info">
+                                    <div class="dashboard-timeline-info">
+                                      <span class="jobster-timeline-time">{"2020-6-01 to 2020-6-01"}</span>
+                                      <h6 class="mb-2">{"Web Designer"}</h6>
+                                      <span>{"- Inwave Studio"}</span>
+                                      <p class="mt-2">{"One of the main areas that I work on with my clients is shedding these non-supportive beliefs and replacing them with beliefs that will help them to accomplish their desires."}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="jobster-timeline-item mb-0">
+                                  <div class="jobster-timeline-cricle">
+                                    <i class="far fa-circle"></i>
+                                  </div>
+                                  <div class="jobster-timeline-info">
+                                    <div class="dashboard-timeline-info">
+                                      <span class="jobster-timeline-time">{"2020-6-01 to 2020-6-01"}</span>
+                                      <h6 class="mb-2">{"Secondary School Certificate"}</h6>
+                                      <span>{"- Engineering High School"}</span>
+                                      <p class="mt-2">{"Figure out what you want, put a plan together to achieve it, understand the cost, believe in yourself then go and get it!"}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="timeline-box mt-4">
+                              <h5 class="resume-experience-title">{"Awards:"}</h5>
+                              <div class="jobster-candidate-timeline">
+                                <div class="jobster-timeline-item">
+                                  <div class="jobster-timeline-cricle">
+                                    <i class="far fa-circle"></i>
+                                  </div>
+                                  <div class="jobster-timeline-info">
+                                    <div class="dashboard-timeline-info">
+                                      <span class="jobster-timeline-time">{"2020-6-01 to 2020-6-01"}</span>
+                                      <h6 class="mb-2">{"Web Designer"}</h6>
+                                      <span>{"- Inwave Studio"}</span>
+                                      <p class="mt-2">{"One of the main areas that I work on with my clients is shedding these non-supportive beliefs and replacing them with beliefs that will help them to accomplish their desires."}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="jobster-timeline-item mb-0">
+                                  <div class="jobster-timeline-cricle">
+                                    <i class="far fa-circle"></i>
+                                  </div>
+                                  <div class="jobster-timeline-info">
+                                    <div class="dashboard-timeline-info">
+                                      <span class="jobster-timeline-time">{"2020-6-01 to 2020-6-01"}</span>
+                                      <h6 class="mb-2">{"Secondary School Certificate"}</h6>
+                                      <span>{"- Engineering High School"}</span>
+                                      <p class="mt-2">{"Figure out what you want, put a plan together to achieve it, understand the cost, believe in yourself then go and get it!"}</p>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
     }
 }
