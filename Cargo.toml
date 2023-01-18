@@ -17,3 +17,6 @@ wasm-bindgen = "0.2.83"
 web-sys = { version = "0.3.60", features = ["css"] }
 yew = { version = "0.20.0", features = ["csr"] }
 yewdux = "0.9.0"
+
+[profile.release]
+debug = 1
