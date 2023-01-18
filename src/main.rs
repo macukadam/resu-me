@@ -7,6 +7,7 @@ use resume::components::organisms::multi_step_form::MultiStepForm;
 use resume::components::organisms::resume::Resume;
 use resume::components::organisms::resume2::Resume2;
 use resume::components::organisms::resume3::Resume3;
+use resume::components::organisms::resume4::Resume4;
 
 use resume::bindings::htmltopdf;
 
@@ -38,7 +39,7 @@ fn form() -> Html {
     let active_resume_type_cloned2 = active_resume_type.clone();
 
     let change_resume_type = Callback::from(move |_| {
-        if *active_resume_type == 3 {
+        if *active_resume_type == 4 {
             active_resume_type.set(1);
         } else {
             active_resume_type.set(*active_resume_type + 1);
@@ -74,6 +75,7 @@ fn form() -> Html {
                     1 => html!{ <Resume/> },
                     2 => html!{ <Resume2/> },
                     3 => html!{ <Resume3/> },
+                    4 => html!{ <Resume4/> },
                     _ => html!{ <Resume/> },
                 }
               }
