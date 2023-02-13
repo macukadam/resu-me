@@ -776,16 +776,16 @@ function getImports() {
         const ret = wasm.memory;
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper769 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 406, __wbg_adapter_22);
+    imports.wbg.__wbindgen_closure_wrapper818 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 461, __wbg_adapter_22);
         return addHeapObject(ret);
     };
     imports.wbg.__wbindgen_closure_wrapper1347 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 629, __wbg_adapter_25);
+        const ret = makeMutClosure(arg0, arg1, 628, __wbg_adapter_25);
         return addHeapObject(ret);
     };
     imports.wbg.__wbindgen_closure_wrapper1729 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 751, __wbg_adapter_28);
+        const ret = makeMutClosure(arg0, arg1, 750, __wbg_adapter_28);
         return addHeapObject(ret);
     };
 
@@ -823,7 +823,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('resume-daa081b77e8bb305_bg.wasm', import.meta.url);
+        input = new URL('resume-71abfd96f0145e2d_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 

@@ -63,11 +63,11 @@ fn form() -> Html {
         <div>
             <SideBar child={html!{ <MultiStepForm/> }}/>
             <div id="main">
-                <nav class="navbar navbar-light bg-light">
+                <nav class="navbar navbar-dark bg-dark">
                   <form class="form-inline">
-                      <button type="button" class="openbtn btn btn-outline-success" onclick={opennav}>{"☰ Open Sidebar"}</button>
-                      <button type="button" class="openbtn btn btn-outline-success" onclick={htmltopdf}>{"☰ Save as PDF"}</button>
-                      <button type="button" class="openbtn btn btn-outline-success" onclick={change_resume_type}>{"☰ Change resume type"}</button>
+                      <button type="button" class="openbtn btn btn-outline-primary" onclick={opennav}>{"☰ Edit Resume"}</button>
+                      <button type="button" class="openbtn btn btn-outline-primary" onclick={htmltopdf}>{"☰ Download as PDF"}</button>
+                      <button type="button" class="openbtn btn btn-outline-primary" onclick={change_resume_type}>{"☰ Change type"}</button>
                   </form>
                 </nav>
               {
