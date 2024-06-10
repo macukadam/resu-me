@@ -12,6 +12,71 @@ pub fn resume2() -> Html {
     let (state, _) = use_store::<GlobalState>();
     let img = format!("data:image/png;base64,{}", state.image_data);
 
+    let skills = state.skills.iter().map(|skill| {
+        html!(
+            <div class="progress bg-dark">
+                <div class="progress-bar bg-white" role="progressbar"
+                     style={format!("width:{}%", skill.proficiency)}
+                     aria-valuenow={skill.proficiency.clone()}
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                  <div class="progress-bar-title text-white">{&skill.skill}</div>
+                  <span class="progress-bar-number text-white">{&skill.proficiency}{"%"}</span>
+                </div>
+            </div>
+        )
+    });
+
+    let education = state.education.iter().map(|education| {
+        html!(
+            <div class="jobster-timeline-item">
+              <div class="jobster-timeline-cricle">
+                <i class="far fa-circle"></i>
+              </div>
+              <div class="jobster-timeline-info">
+                <div class="dashboard-timeline-info">
+                  <h6 class="mb-2">{&education.position}</h6>
+                  <p class="mt-2">{&education.explanation}</p>
+                </div>
+              </div>
+            </div>
+        )
+    });
+
+    let experience = state.work_experience.iter().map(|experience| {
+        html!(
+        <div class="jobster-timeline-item">
+          <div class="jobster-timeline-cricle">
+            <i class="far fa-circle"></i>
+          </div>
+          <div class="jobster-timeline-info">
+            <div class="dashboard-timeline-info">
+              <h6 class="mb-2">{&experience.position}</h6>
+              <p class="mt-2">{&experience.explanation}</p>
+            </div>
+          </div>
+        </div>
+        )
+    });
+
+    let recent_work = state.recent_work.iter().map(|recent| {
+        html!(
+            <div class="jobster-timeline-item mb-0">
+              <div class="jobster-timeline-cricle">
+                <i class="far fa-circle"></i>
+              </div>
+              <div class="jobster-timeline-info">
+                <div class="dashboard-timeline-info">
+                  <h6 class="mb-2">
+                    <a href={recent.link.clone()}>{&recent.project}</a>
+                  </h6>
+                  <span>{&recent.explanation}</span>
+                </div>
+              </div>
+            </div>
+        )
+    });
+
     html! {
         <div id="resume2" class={stylesheet}>
             <div class="container">
@@ -26,62 +91,35 @@ pub fn resume2() -> Html {
                                   <img class="img-fluid" alt="Profile Photo" src={img}/>
                                 </div>
                                 <div class="profile-avatar-info mt-3">
-                                  <h5 class="text-white">{"Vickie Meyer"}</h5>
+                                  <h5 class="text-white">{&state.username}</h5>
                                 </div>
                               </div>
                             </div>
                             <div class="about-candidate border-top">
                               <div class="candidate-info">
-                                <h6 class="text-white">{"Name:"}</h6>
-                                <p class="text-white">{"Anne Smith"}</p>
-                              </div>
-                              <div class="candidate-info">
                                 <h6 class="text-white">{"Email:"}</h6>
-                                <p class="text-white">{"test04@gmail.com"}</p>
+                                <p class="text-white">{&state.email}</p>
                               </div>
                               <div class="candidate-info">
                                 <h6 class="text-white">{"Phone:"}</h6>
-                                <p class="text-white">{"(123) 345-6789"}</p>
+                                <p class="text-white">{&state.phone}</p>
                               </div>
                               <div class="candidate-info">
                                 <h6 class="text-white">{"Date Of Birth:"}</h6>
-                                <p class="text-white">{"1993-12-28"}</p>
+                                <p class="text-white">{&state.dob}</p>
                               </div>
                               <div class="candidate-info">
                                 <h6 class="text-white">{"Address:"}</h6>
-                                <p class="text-white">{"Maine Turnpike, Hallowell, ME, USA"}</p>
+                                <p class="text-white">{&state.address}</p>
                               </div>
                               <div class="candidate-info">
                                 <h6 class="text-white">{"Gender:"}</h6>
-                                <p class="text-white">{"Female"}</p>
+                                <p class="text-white">{&state.gender.to_string()}</p>
                               </div>
                             </div>
                             <div class="mt-0">
                               <h5 class="text-white">{"Professional Skill:"}</h5>
-                              <div class="progress bg-dark">
-                                <div class="progress-bar bg-white" role="progressbar" style="width:55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
-                                  <div class="progress-bar-title text-white">{"Photoshop"}</div>
-                                  <span class="progress-bar-number text-white">{"70%"}</span>
-                                </div>
-                              </div>
-                              <div class="progress bg-dark">
-                                <div class="progress-bar bg-white" role="progressbar" style="width:80%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
-                                  <div class="progress-bar-title text-white">{"JavaScript"}</div>
-                                  <span class="progress-bar-number text-white">{"80%"}</span>
-                                </div>
-                              </div>
-                              <div class="progress bg-dark">
-                                <div class="progress-bar bg-white" role="progressbar" style="width:55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
-                                  <div class="progress-bar-title text-white">{"HTML/CSS"}</div>
-                                  <span class="progress-bar-number text-white">{"55%"}</span>
-                                </div>
-                              </div>
-                              <div class="progress bg-dark mb-md-0">
-                                <div class="progress-bar bg-white" role="progressbar" style="width:60%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                  <div class="progress-bar-title text-white">{"PHP"}</div>
-                                  <span class="progress-bar-number text-white">{"60%"}</span>
-                                </div>
-                              </div>
+                              { for skills }
                             </div>
                           </div>
                         </div>
@@ -90,94 +128,19 @@ pub fn resume2() -> Html {
                             <div class="timeline-box">
                               <h5 class="resume-experience-title">{"Education:"}</h5>
                               <div class="jobster-candidate-timeline">
-                                <div class="jobster-timeline-item">
-                                  <div class="jobster-timeline-cricle">
-                                    <i class="far fa-circle"></i>
-                                  </div>
-                                  <div class="jobster-timeline-info">
-                                    <div class="dashboard-timeline-info">
-                                      <span class="jobster-timeline-time">{"2014 - 2018"}</span>
-                                      <h6 class="mb-2">{"Diploma in Graphics Design"}</h6>
-                                      <span>{"- Graphic Arts Institute"}</span>
-                                      <p class="mt-2">{"Have some fun and hypnotize yourself to be your very own “Ghost of Christmas future” and see what the future holds for you."}</p>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="jobster-timeline-item mb-0">
-                                  <div class="jobster-timeline-cricle">
-                                    <i class="far fa-circle"></i>
-                                  </div>
-                                  <div class="jobster-timeline-info">
-                                    <div class="dashboard-timeline-info">
-                                      <span class="jobster-timeline-time">{"2018 - Pres"}</span>
-                                      <h6 class="mb-2">{"Masters in Software Engineering"}</h6>
-                                      <span>{"- Engineering University"}</span>
-                                      <p class="mt-2">{"This is the beginning of creating the life that you want to live. Know what the future holds for you as a result of the choice you can make today."}</p>
-                                    </div>
-                                  </div>
-                                </div>
+                                { for education }
                               </div>
                             </div>
                             <div class="timeline-box mt-4">
-                              <h5 class="resume-experience-title">{"Work &amp; Experience:"}</h5>
+                              <h5 class="resume-experience-title">{"Work experience:"}</h5>
                               <div class="jobster-candidate-timeline">
-                                <div class="jobster-timeline-item">
-                                  <div class="jobster-timeline-cricle">
-                                    <i class="far fa-circle"></i>
-                                  </div>
-                                  <div class="jobster-timeline-info">
-                                    <div class="dashboard-timeline-info">
-                                      <span class="jobster-timeline-time">{"2020-6-01 to 2020-6-01"}</span>
-                                      <h6 class="mb-2">{"Web Designer"}</h6>
-                                      <span>{"- Inwave Studio"}</span>
-                                      <p class="mt-2">{"One of the main areas that I work on with my clients is shedding these non-supportive beliefs and replacing them with beliefs that will help them to accomplish their desires."}</p>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="jobster-timeline-item mb-0">
-                                  <div class="jobster-timeline-cricle">
-                                    <i class="far fa-circle"></i>
-                                  </div>
-                                  <div class="jobster-timeline-info">
-                                    <div class="dashboard-timeline-info">
-                                      <span class="jobster-timeline-time">{"2020-6-01 to 2020-6-01"}</span>
-                                      <h6 class="mb-2">{"Secondary School Certificate"}</h6>
-                                      <span>{"- Engineering High School"}</span>
-                                      <p class="mt-2">{"Figure out what you want, put a plan together to achieve it, understand the cost, believe in yourself then go and get it!"}</p>
-                                    </div>
-                                  </div>
-                                </div>
+                                { for experience }
                               </div>
                             </div>
                             <div class="timeline-box mt-4">
-                              <h5 class="resume-experience-title">{"Awards:"}</h5>
+                              <h5 class="resume-experience-title">{"Recent work:"}</h5>
                               <div class="jobster-candidate-timeline">
-                                <div class="jobster-timeline-item">
-                                  <div class="jobster-timeline-cricle">
-                                    <i class="far fa-circle"></i>
-                                  </div>
-                                  <div class="jobster-timeline-info">
-                                    <div class="dashboard-timeline-info">
-                                      <span class="jobster-timeline-time">{"2020-6-01 to 2020-6-01"}</span>
-                                      <h6 class="mb-2">{"Web Designer"}</h6>
-                                      <span>{"- Inwave Studio"}</span>
-                                      <p class="mt-2">{"One of the main areas that I work on with my clients is shedding these non-supportive beliefs and replacing them with beliefs that will help them to accomplish their desires."}</p>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="jobster-timeline-item mb-0">
-                                  <div class="jobster-timeline-cricle">
-                                    <i class="far fa-circle"></i>
-                                  </div>
-                                  <div class="jobster-timeline-info">
-                                    <div class="dashboard-timeline-info">
-                                      <span class="jobster-timeline-time">{"2020-6-01 to 2020-6-01"}</span>
-                                      <h6 class="mb-2">{"Secondary School Certificate"}</h6>
-                                      <span>{"- Engineering High School"}</span>
-                                      <p class="mt-2">{"Figure out what you want, put a plan together to achieve it, understand the cost, believe in yourself then go and get it!"}</p>
-                                    </div>
-                                </div>
-                              </div>
+                               { for recent_work }
                             </div>
                           </div>
                         </div>

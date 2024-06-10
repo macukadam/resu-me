@@ -11,7 +11,7 @@ pub fn education() -> Html {
         html! {
           <li>
             <h6 class="text-primary">{&education.position}</h6>
-            <p>{&education.explanation}</p>
+            <p style="white-space: pre-wrap;">{&education.explanation}</p>
           </li>
         }
     });

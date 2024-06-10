@@ -103,11 +103,6 @@ pub fn step_container() -> Html {
             <h4>{"Work history"}</h4>
             { for state.work_experience.iter().enumerate().map(|(index, work)| {
 
-            let header = format!("Work {}", index + 1);
-            html! {
-                <h3>{header}</h3>
-            };
-
             let onkeyup_workexperience_position =
                 dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
                 state.work_experience[index].position = event

@@ -11,7 +11,7 @@ pub fn work() -> Html {
         html! {
           <li>
             <h6 class="text-primary">{&work.position}</h6>
-            <p>{&work.explanation}</p>
+            <p style="white-space: pre-wrap;">{&work.explanation}</p>
           </li>
         }
     });

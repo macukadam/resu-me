@@ -7,13 +7,13 @@ use crate::GlobalState;
 pub fn recent_work() -> Html {
     let (state, _) = use_store::<GlobalState>();
 
-    let images = state.images.iter().map(|img| {
-        let image = format!("{}", img);
+    let recent_work = state.recent_work.iter().map(|recent| {
         html! {
-            <div class="col-md mb-3">
-                <a href="#">
-                  <img class="img-fluid img-thumbnail" src={image}/>
-                </a>
+            <div>
+                <h6 class="text-primary">
+                    <a href={recent.link.clone()}>{&recent.project}</a>
+                </h6>
+                <p style="white-space: pre-wrap;font-size:11pt">{&recent.explanation}</p>
             </div>
         }
     });
@@ -22,7 +22,7 @@ pub fn recent_work() -> Html {
       <div class="col-md">
         <h2 class="mb-5">{"Recent Work"}</h2>
         <div class="row">
-            { for images }
+            { for recent_work }
         </div>
       </div>
     }

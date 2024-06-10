@@ -7,7 +7,7 @@ pub fn set_progress_bar(val: u32) {
         .get_elements_by_class_name("progress-bar")
         .item(0)
         .unwrap()
-        .set_attribute("width", &format!("{}%", val))
+        .set_attribute("style", &format!("width: {}%", val))
         .unwrap()
 }
 
@@ -33,7 +33,7 @@ pub fn button_container() -> Html {
 
         cloned_step_val.set(*cloned_step_val + 1);
 
-        set_progress_bar((100 / cloned_steps.length()) * *cloned_step_val);
+        set_progress_bar((100 / (cloned_steps.length() - 1)) * (*cloned_step_val + 1));
     });
 
     let cloned_step_val = step_val.clone();
@@ -49,8 +49,9 @@ pub fn button_container() -> Html {
             .set_class_name("step d-block");
 
         cloned_step_val.set(*cloned_step_val - 1);
-        set_progress_bar((100 / cloned_steps.length()) * *cloned_step_val);
+        set_progress_bar((100 / (cloned_steps.length() - 1)) * (*cloned_step_val - 1));
     });
+
 
     html! {
         <div id="q-box__buttons">

@@ -6,10 +6,10 @@ use resume::components::molecules::side_bar::SideBar;
 use resume::components::organisms::multi_step_form::MultiStepForm;
 use resume::components::organisms::resume::Resume;
 use resume::components::organisms::resume2::Resume2;
-use resume::components::organisms::resume3::Resume3;
+// use resume::components::organisms::resume3::Resume3;
+// use resume::components::organisms::resume4::Resume4;
 
 use resume::bindings::htmltopdf;
-
 
 #[function_component(TestForm)]
 fn form() -> Html {
@@ -17,82 +17,73 @@ fn form() -> Html {
         let window = web_sys::window().unwrap();
         let document = window.document().unwrap();
 
-        document.get_element_by_id("mySidebar")
+        document
+            .get_element_by_id("mySidebar")
             .unwrap()
             .dyn_into::<HtmlElement>()
             .unwrap()
             .set_attribute("style", "width: 600px;")
             .unwrap();
 
-        document.get_element_by_id("main")
+        document
+            .get_element_by_id("main")
             .unwrap()
             .dyn_into::<HtmlElement>()
             .unwrap()
             .set_attribute("style", "margin-left: 600px;")
             .unwrap();
-
     });
 
     let active_resume_type = use_state(|| 1);
     let active_resume_type_cloned = active_resume_type.clone();
+    let active_resume_type_cloned2 = active_resume_type.clone();
 
     let change_resume_type = Callback::from(move |_| {
-        let window = web_sys::window().unwrap();
-        let document = window.document().unwrap();
-
-        if *active_resume_type == 3 {
+        if *active_resume_type == 2 {
             active_resume_type.set(1);
         } else {
             active_resume_type.set(*active_resume_type + 1);
         }
-
-        for i in 1..=3 {
-            document.get_element_by_id(&format!("resume{}", i))
-                .unwrap()
-                .dyn_into::<HtmlElement>()
-                .unwrap()
-                .set_attribute("style", "display: none;")
-                .unwrap();
-        }
-
-        document.get_element_by_id(&format!("resume{}", *active_resume_type))
-            .unwrap()
-            .dyn_into::<HtmlElement>()
-            .unwrap()
-            .set_attribute("style", "display: block;")
-            .unwrap();
-
     });
 
-
-    let htmltopdf =  Callback::from(move |_: MouseEvent| {
+    let htmltopdf = Callback::from(move |_: MouseEvent| {
         let window = web_sys::window().unwrap();
         let document = window.document().unwrap();
 
-        let element = document.get_element_by_id(&format!("resume{}", *active_resume_type_cloned))
+        let element = document
+            .get_element_by_id(&format!("resume{}", *active_resume_type_cloned))
             .unwrap()
-            .dyn_into::<HtmlElement>().unwrap();
+            .dyn_into::<HtmlElement>()
+            .unwrap();
 
         htmltopdf(&element);
     });
-
 
     html! {
         <div>
             <SideBar child={html!{ <MultiStepForm/> }}/>
             <div id="main">
-              <button class="openbtn" onclick={opennav}>{"☰ Open Sidebar"}</button>
-              <button class="openbtn" onclick={htmltopdf}>{"☰ Save as PDF"}</button>
-              <button class="openbtn" onclick={change_resume_type}>{"☰ Change resume type"}</button>
-              <Resume/>
-              <Resume2/>
-              <Resume3/>
+                <nav class="navbar navbar-dark bg-dark">
+                  <form class="form-inline">
+                      <button type="button" class="openbtn btn btn-outline-primary" onclick={opennav}>{"☰ Edit Resume"}</button>
+                      <button type="button" class="openbtn btn btn-outline-primary" onclick={htmltopdf}>{"☰ Download as PDF"}</button>
+                      <button type="button" class="openbtn btn btn-outline-primary" onclick={change_resume_type}>{"☰ Change type"}</button>
+                  </form>
+                </nav>
+              {
+                match *active_resume_type_cloned2 {
+                    1 => html!{ <Resume/> },
+                    2 => html!{ <Resume2/> },
+                    // 3 => html!{ <Resume3/> },
+                    // 4 => html!{ <Resume4/> },
+                    _ => html!{ <Resume/> },
+                }
+              }
             </div>
         </div>
     }
 }
 
 fn main() {
-    // yew::Renderer::<Test>::new().render();
     yew::Renderer::<TestForm>::new().render();
 }

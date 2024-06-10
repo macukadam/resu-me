@@ -10,8 +10,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <base data-trunk-public-url/>
-</head>
+
+<link rel="modulepreload" href="/resu-me/resume-6e27809e6c0b1fb8.js" crossorigin=anonymous integrity="sha384-EcWNqvnq/tIayo5EzuHv69gyGSiHgeTsl4u8t/m/KdTMWRfn+BS2n3ALzbEk73Yp">
+<link rel="modulepreload" href="/resu-me/snippets/resume-ddf72c9b9a1ac15c/js/html2pdf.js" crossorigin=anonymous integrity="sha384-uixCQjA3R2h2ggLhbFhaJmAKaCj4twPNiQptrYL5TsHD3yob8FJ+1tZYDlsMViqC">
+<link rel="preload" href="/resu-me/resume-6e27809e6c0b1fb8_bg.wasm" crossorigin=anonymous integrity="sha384-PrjSuuwb6w/vVV7kFL21Vh99g+kkeAmVXsEnWvaYBv74VJjEQODnJ19cm6q3sCTu" as="fetch" type="application/wasm"></head>
 
 <body>
   <script>
@@ -23,6 +25,17 @@
    }
    addScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
   </script>
-</body>
+
+<script type="module" nonce="5Eie9jiEIA4894hlSl/tRg==">
+import init, * as bindings from '/resu-me/resume-6e27809e6c0b1fb8.js';
+const wasm = await init('/resu-me/resume-6e27809e6c0b1fb8_bg.wasm');
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
 
 </html>

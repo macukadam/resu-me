@@ -16,11 +16,11 @@ pub fn resume() -> Html {
           <main class="container">
             <div class="row">
                 <Work />
-                <Education />
+                <RecentWork />
             </div>
             <div class="row">
                 <Skill />
-                <RecentWork />
+                <Education />
             </div>
           </main>
           <Footer />

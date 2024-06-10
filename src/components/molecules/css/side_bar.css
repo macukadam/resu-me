@@ -9,9 +9,9 @@ body {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #376;
+  background-color: #2d2efd;
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: 0.3s;
   padding-top: 60px;
 }
 
