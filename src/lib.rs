@@ -119,7 +119,7 @@ impl DefaultVec for Experience {
             Self {
                 position: "Swishfund - Senior Software Engineer / December 2021 - Present".to_string(),
                 explanation: "• Developing and maintaining the credit analysis platform at Swishfund.
-• Extending and improving our open-source PIPY packages.
+• Extending and improving our open-source PYPI packages.
 • Implementing deployment and testing pipelines.
 • Developing a loan administration system from the ground up.
 • Reducing costs significantly for API usages and cloud services by optimizing code.
