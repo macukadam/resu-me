@@ -160,7 +160,7 @@ impl DefaultVec for Education {
     fn default_vec() -> Vec<Self> {
         vec![
             Self {
-                position: "MS Software Engineering - Bogazici University, Istanbul / 2019 - 2021".to_string(),
+                position: "MS Software Engineering - Bogazici University, Istanbul / 2016 - 2019".to_string(),
                 explanation: "• Pursued a Master's degree in Software Engineering, focusing on advanced software development techniques and project management. Gained in-depth knowledge of algorithms, system architecture, and software lifecycle.".to_string(),
             },
             Self {
@@ -176,7 +176,7 @@ impl DefaultVec for RecentWork {
         vec![
             Self {
                 project: "Ticker".to_string(),
-                explanation: "Personal project - An experimental tool for calculating arbitrage opportunities between different pairs and exchanges using Flask and Websockets.".to_string(),
+                explanation: "Personal project - An experimental tool for calculating arbitrage opportunities between different crypto pairs and exchanges.".to_string(),
                 link: "https://ticker.lol/".to_string(),
             },
             Self {
@@ -186,7 +186,7 @@ impl DefaultVec for RecentWork {
             },
             Self {
                 project: "Dutch Blog".to_string(),
-                explanation: "Personal project - A social app for blogging built with Django, Dart, and Flutter.".to_string(),
+                explanation: "Personal project - A social app for blogging and sharing my language learning process.".to_string(),
                 link: "https://dutch-blog-f6775.web.app/".to_string(),
             },
             Self {
@@ -196,12 +196,12 @@ impl DefaultVec for RecentWork {
             },
             Self {
                 project: "TWASTER".to_string(),
-                explanation: "School project - Earthquake detection by analysing real-time tweets, developed with C# and utilizing Wikidata.".to_string(),
+                explanation: "School project - Earthquake detection by analysing real-time tweets.".to_string(),
                 link: "https://github.com/macukadam/TwitterApiWebApp".to_string(),
             },
             Self {
                 project: "TOMRIDDLE".to_string(),
-                explanation: "School project - A simple semantic typing suggester, built using Spring Boot.".to_string(),
+                explanation: "School project - A simple semantic typing suggester utilizing WikiData".to_string(),
                 link: "https://github.com/macukadam/TomRiddle".to_string(),
             },
             Self {

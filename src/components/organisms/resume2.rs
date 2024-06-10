@@ -36,7 +36,7 @@ pub fn resume2() -> Html {
               <div class="jobster-timeline-info">
                 <div class="dashboard-timeline-info">
                   <h6 class="mb-2">{&education.position}</h6>
-                  <p class="mt-2">{&education.explanation}</p>
+                  <p style="white-space: pre-wrap;">{&education.explanation}</p>
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@ pub fn resume2() -> Html {
           <div class="jobster-timeline-info">
             <div class="dashboard-timeline-info">
               <h6 class="mb-2">{&experience.position}</h6>
-              <p class="mt-2">{&experience.explanation}</p>
+              <p style="white-space: pre-wrap;">{&experience.explanation}</p>
             </div>
           </div>
         </div>

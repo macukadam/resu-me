@@ -24,7 +24,7 @@ pub fn footer() -> Html {
 
     html! {
       <footer class="bg-dark text-white-50 text-center mt-5 p-3">
-      {"\u{00a9} 2023 "}{&state.username}{" - "}
+      {"\u{00a9} 2024 "}{&state.username}{" - "}
         { for with_seperator }
       </footer>
     }
