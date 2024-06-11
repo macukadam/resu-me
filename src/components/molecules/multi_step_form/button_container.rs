@@ -59,7 +59,7 @@ pub fn button_container() -> Html {
                 <button id="prev-btn" onclick={backward} type="button">{"Previous"}</button>
             }
 
-            if *step_val < 4 {
+            if *step_val < 5 {
                 <button id="next-btn" onclick={forward} type="button">{"Next"}</button>
             }
 

@@ -70,6 +70,16 @@ pub fn step_container() -> Html {
         state.education.pop();
     });
 
+    let add_recent_work = dispatch.reduce_mut_callback_with(|state, event: MouseEvent| {
+        event.prevent_default();
+        state.recent_work.push(Default::default());
+    });
+
+    let remove_recent_work = dispatch.reduce_mut_callback_with(|state, event: MouseEvent| {
+        event.prevent_default();
+        state.recent_work.pop();
+    });
+
     let add_skill = dispatch.reduce_mut_callback_with(|state, event: MouseEvent| {
         event.prevent_default();
         state.skills.push(Default::default());
@@ -131,20 +141,27 @@ pub fn step_container() -> Html {
             <button onclick={remove_work_experience} style="font-size:16px"><i class="fa fa-minus"></i></button>
           </div>
           <div class="step">
-            <h4>{"Education history"}</h4>
+            <h4>{"Recent Work"}</h4>
 
-            { for state.education.iter().enumerate().map(|(index, education)| {
+            { for state.recent_work.iter().enumerate().map(|(index, recent_work)| {
 
-            let onkeyup_education_school =
+            let onkeyup_recent_work_project =
                 dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
-                    state.education[index].position = event
+                    state.recent_work[index].project = event
                         .target_unchecked_into::<web_sys::HtmlInputElement>()
                         .value();
             });
 
-            let onkeyup_education_explanation =
+            let onkeyup_recent_work_explanation =
                 dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
-                    state.education[index].explanation = event
+                    state.recent_work[index].explanation = event
+                        .target_unchecked_into::<web_sys::HtmlInputElement>()
+                        .value();
+            });
+
+            let onkeyup_recent_work_link =
+                dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
+                    state.recent_work[index].link = event
                         .target_unchecked_into::<web_sys::HtmlInputElement>()
                         .value();
             });
@@ -153,16 +170,17 @@ pub fn step_container() -> Html {
               html! {
                 <div>
                     <br/>
-                    <Input value={education.position.clone()} onkeyup={onkeyup_education_school} label="Education name:" />
-                    <TextArea value={education.explanation.clone()} onkeyup={onkeyup_education_explanation} label="Explanation:" />
+                    <Input value={recent_work.project.clone()} onkeyup={onkeyup_recent_work_project} label="Project name:" />
+                    <TextArea value={recent_work.explanation.clone()} onkeyup={onkeyup_recent_work_explanation} label="Explanation:" />
+                    <Input value={recent_work.link.clone()} onkeyup={onkeyup_recent_work_link} label="Link:" />
                 </div>
               }
             })}
 
 
             <br/>
-            <button onclick={add_education} style="font-size:16px"><i class="fa fa-plus"></i></button>
-            <button onclick={remove_education} style="font-size:16px"><i class="fa fa-minus"></i></button>
+            <button onclick={add_recent_work} style="font-size:16px"><i class="fa fa-plus"></i></button>
+            <button onclick={remove_recent_work} style="font-size:16px"><i class="fa fa-minus"></i></button>
           </div>
           <div class="step">
             <h4>{"Skills"}</h4>
@@ -196,6 +214,40 @@ pub fn step_container() -> Html {
             <br/>
             <button onclick={add_skill} style="font-size:16px"><i class="fa fa-plus"></i></button>
             <button onclick={remove_skill} style="font-size:16px"><i class="fa fa-minus"></i></button>
+          </div>
+          <div class="step">
+            <h4>{"Education history"}</h4>
+
+            { for state.education.iter().enumerate().map(|(index, education)| {
+
+            let onkeyup_education_school =
+                dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
+                    state.education[index].position = event
+                        .target_unchecked_into::<web_sys::HtmlInputElement>()
+                        .value();
+            });
+
+            let onkeyup_education_explanation =
+                dispatch.reduce_mut_callback_with(move |state, event: KeyboardEvent| {
+                    state.education[index].explanation = event
+                        .target_unchecked_into::<web_sys::HtmlInputElement>()
+                        .value();
+            });
+
+
+              html! {
+                <div>
+                    <br/>
+                    <Input value={education.position.clone()} onkeyup={onkeyup_education_school} label="Education name:" />
+                    <TextArea value={education.explanation.clone()} onkeyup={onkeyup_education_explanation} label="Explanation:" />
+                </div>
+              }
+            })}
+
+
+            <br/>
+            <button onclick={add_education} style="font-size:16px"><i class="fa fa-plus"></i></button>
+            <button onclick={remove_education} style="font-size:16px"><i class="fa fa-minus"></i></button>
           </div>
         </div>
     }
